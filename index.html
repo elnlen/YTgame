@@ -1,13 +1,83 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Block Berserkr</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Berserkr</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 font-sans text-slate-100 overflow-hidden touch-none select-none">
+  
+  <!-- Header Info -->
+  <div class="w-full max-w-4xl flex justify-between items-end mb-4 px-2">
+    <div>
+      <h1 class="text-3xl font-black tracking-tighter uppercase bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent italic flex items-center gap-2">
+        Block Berserkr
+        <svg id="berserk-icon" class="w-6 h-6 text-yellow-400 animate-pulse hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </h1>
+      <p class="text-slate-400 text-sm font-medium tracking-wide">EXHILARATING BLOCK ACTION</p>
+    </div>
+    
+    <div class="text-right flex gap-6">
+      <div class="flex flex-col items-end">
+        <span class="text-slate-500 text-xs font-bold tracking-widest uppercase">Combo</span>
+        <span id="combo-display" class="text-2xl font-mono font-bold transition-colors text-slate-200">
+          0x
+        </span>
+      </div>
+      <div class="flex flex-col items-end">
+        <span class="text-slate-500 text-xs font-bold tracking-widest uppercase">Score</span>
+        <span id="score-display" class="text-2xl font-mono font-bold text-white">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Stage -->
+  <div class="relative w-full max-w-4xl aspect-[4/3] bg-slate-900 rounded-xl overflow-hidden shadow-2xl border border-slate-800 shadow-orange-900/20 ring-1 ring-white/5">
+    
+    <canvas id="gameCanvas" class="w-full h-full object-contain block cursor-crosshair touch-none"></canvas>
+
+    <!-- Overlays -->
+    <div id="overlay-start" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center z-10">
+      <div class="w-24 h-24 bg-red-500/20 rounded-full flex items-center justify-center mb-8 animate-pulse">
+        <svg class="w-12 h-12 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <h2 class="text-4xl font-black italic tracking-tight mb-2">READY TO GO BERSERK?</h2>
+      <p class="text-slate-400 mb-8 max-w-md text-center">Swipe or move your mouse to control the paddle. Build your combo to enter Berserk Mode.</p>
+      <button onclick="startGame()" class="flex items-center gap-3 bg-red-600 hover:bg-red-500 text-white px-8 py-4 rounded-full font-bold text-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-red-600/30">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        START GAME
+      </button>
+    </div>
+
+    <div id="overlay-gameover" class="hidden absolute inset-0 bg-red-950/90 backdrop-blur-md flex flex-col items-center justify-center z-10">
+      <h2 class="text-6xl font-black italic tracking-tight mb-2 text-red-500 drop-shadow-lg">GAME OVER</h2>
+      <p id="gameover-score" class="text-red-200 mb-2 font-mono text-xl">FINAL SCORE: 0</p>
+      <p class="text-red-400/60 mb-10 text-sm font-medium">YOUR RAGE WAS EXTINGUISHED</p>
+      <button onclick="startGame()" class="flex items-center gap-3 bg-white text-red-950 px-8 py-4 rounded-full font-bold text-xl transition-all hover:scale-105 active:scale-95 shadow-xl shadow-red-900/50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+        TRY AGAIN
+      </button>
+    </div>
+
+    <div id="overlay-clear" class="hidden absolute inset-0 bg-blue-950/90 backdrop-blur-md flex flex-col items-center justify-center z-10">
+      <h2 class="text-6xl font-black italic tracking-tight mb-2 text-blue-400 drop-shadow-lg">STAGE CLEARED</h2>
+      <p id="clear-score" class="text-blue-200 mb-2 font-mono text-xl">FINAL SCORE: 0</p>
+      <p class="text-blue-400/60 mb-10 text-sm font-medium">TOTAL ANNIHILATION ACHIEVED</p>
+      <button onclick="startGame()" class="flex items-center gap-3 bg-blue-500 hover:bg-blue-400 text-white px-8 py-4 rounded-full font-bold text-xl transition-all hover:scale-105 active:scale-95 shadow-xl shadow-blue-900/50">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        PLAY AGAIN
+      </button>
+    </div>
+
+  </div>
+  
+  <!-- Mobile Hint -->
+  <div class="mt-6 text-slate-500 text-sm font-medium">
+    Works perfectly on mobile devices.
+  </div>
+
+  <script src="game.js"></script>
+</body>
 </html>
 
