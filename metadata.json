@@ -1,0 +1,6 @@
+{
+  "name": "Block Berserkr",
+  "description": "An exhilarating, easy-to-play block clearing game optimized for quick sessions and touch controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
